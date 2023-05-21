@@ -1,0 +1,50 @@
+8Jan02 - eurijk@zefga.net
+	Added a corny /kick implementation. At some point this needs to pass
+	through the msgqueue.
+30Dec02 - eurijk@zefga.net
+	Optimizations in sha can produce undesirable results. Freak case bug fixes.
+29Dec02 - eurijk@zefga.net
+	Reverted to old database. User password creation works. Fixed bug of
+	too many connection free's.
+27Dec02 - eurijk@zefga.net
+	Moon made a ton of changes >;-) Logins work, channel joins, channel text,
+	etc. *poke poke*, update the changelog >;-). Fixed a few strange things
+	for gcc. Disabled all the hexdumps. Added debug() so we can isolate strange
+	case segfaults. Fixed some threading issues.
+22Dec02 - eurijk@zefga.net
+	Added sha1, fixes for FreeBSD
+21Dec02 - eurijk@zefga.net
+	Moved us over to cvs, added some info to README about this. Added poppkt.
+	Added some const fixes. Added a cheezy db so we have something to start
+	from. We should be able to make a much better db in the future. :) Added
+	msgqueue, so we can queue msg's to users and eventually between servers.
+21Dec02 - moonshine
+	Packids.h now contains all game-related protocol packet ids. (Thanks to
+	arta for help on this) Added CGameCentre Packet dispatch/packet handling
+	hell (Alot of typing =\)
+21Dec02 - c0ol
+	added splitters to network.cpp loops is now out the window.
+20Dec02 - moonshine
+	ThreadLoop() has been moved to CChild->Instance(), worked/working on
+	various other design aspects.
+18Dec02 - moonshine
+	ThreadLoop() was eating CPU% when there were no FD_SET()'d sockets, eg.
+	no clients in the child. I fixed this by adding a pipe between globals
+	and each child (under the suggestion of eurijk), so the children will set
+	the piped fd in the loop, and when globals sends data to the socket the
+	child will know when a client has arrived (and the select() on the piped
+	fd prevents cpu rapage)
+17Dec02 - moonshine
+	Added CMessageCentre (Handles & dispatches messages to the lower classes
+	following:), CFTPCentre (handles ftp sessions), CGameCentre (Handles game
+	sessions [eg. bw, w2bn, etc]) and CChatCentre (handles chat bot
+	sessions).
+17Dec02 - moonshine
+	Added Child loop, client's can now return their connection type.  The
+	child loop is now ready for packet-seperation hell and CMessageCentre
+	should start development ASAP. Added more to Child's RemoveClient(), it
+	now closes the client's fd, deincrements their
+	# of connections, and deletes the object.
+17Dec02 - eurijk@zefga.net
+	Fixed potential buffer overflow in log.
+	Started a changelog for fun. :)
